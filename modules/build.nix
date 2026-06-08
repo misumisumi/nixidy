@@ -242,6 +242,14 @@ in
             cat <<EOF > $out/apply
             #!/usr/bin/env bash
 
+            ${lib.optionalString (
+              config.nixidy.target.kubeconfigPath != ""
+            ) "KUBECONFIG=${config.nixidy.target.kubeconfigPath}"}
+
+            ${lib.optionalString (
+              config.nixidy.target.kubeContext != ""
+            ) "${pkgs.kubectl}/bin/kubectl config use-context ${config.nixidy.target.kubeContext}"}
+
             echo "Applying CRDs"
             ${pkgs.kubectl}/bin/kubectl apply \
               -f $out/crds.yml \

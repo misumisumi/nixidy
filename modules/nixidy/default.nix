@@ -36,6 +36,16 @@ in
         default = "./";
         description = "The root path of all generated applications in the repository.";
       };
+      kubeconfigPath = mkOption {
+        type = types.str;
+        default = "";
+        description = "The kubeconfig path to use for direct applying manifests.";
+      };
+      kubeContext = mkOption {
+        type = types.str;
+        default = "";
+        description = "The kube context to use for direct applying manifests. If not set, the current context in the kubeconfig will be used.";
+      };
     };
 
     build = {
